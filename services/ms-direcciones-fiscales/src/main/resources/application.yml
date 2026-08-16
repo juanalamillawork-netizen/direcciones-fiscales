@@ -1,4 +1,4 @@
-  spring:
+spring:
   application:
     name: ms-direcciones-fiscales
   datasource:
@@ -16,7 +16,7 @@
         format_sql: true
 
 server:
-  port: ${SERVER_PORT:8081}
+  port: ${PORT:${SERVER_PORT:8081}}
 
 fideicomisos-adapter:
   base-url: ${FIDEICOMISOS_ADAPTER_URL:http://localhost:8082}
