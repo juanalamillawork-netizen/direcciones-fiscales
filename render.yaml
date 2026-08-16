@@ -1,0 +1,111 @@
+# render.yaml — Blueprint de Render para los 4 microservicios
+# Documentación: https://render.com/docs/blueprint-spec
+#
+# Cómo usarlo:
+# 1. Coloca este archivo en la RAÍZ del repositorio de GitHub.
+# 2. En Render.com → New → Blueprint → conecta tu repo.
+# 3. Render detecta este archivo y crea los 4 servicios automáticamente.
+# 4. Completa las variables de entorno marcadas como "sync: false"
+#    manualmente en el dashboard de Render (son secretos, no van en el repo).
+
+services:
+  # ---------------------------------------------------------
+  # ms-fideicomisos-adapter (solo lectura) — puerto interno 8082
+  # ---------------------------------------------------------
+  - type: web
+    name: ms-fideicomisos-adapter
+    runtime: docker
+    dockerfilePath: ./services/ms-fideicomisos-adapter/Dockerfile
+    dockerContext: ./services/ms-fideicomisos-adapter
+    plan: free
+    region: oregon
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        sync: false          # pega aquí tu connection string de Neon
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: CORS_ALLOWED_ORIGIN
+        sync: false          # URL de tu frontend en Vercel, ej. https://direcciones-fiscales.vercel.app
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+  # ---------------------------------------------------------
+  # ms-direcciones-fiscales (dominio principal) — puerto interno 8081
+  # ---------------------------------------------------------
+  - type: web
+    name: ms-direcciones-fiscales
+    runtime: docker
+    dockerfilePath: ./services/ms-direcciones-fiscales/Dockerfile
+    dockerContext: ./services/ms-direcciones-fiscales
+    plan: free
+    region: oregon
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: CORS_ALLOWED_ORIGIN
+        sync: false
+      - key: FIDEICOMISOS_ADAPTER_URL
+        fromService:
+          type: web
+          name: ms-fideicomisos-adapter
+          property: host      # Render resuelve automáticamente la URL interna
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+  # ---------------------------------------------------------
+  # ms-cif-procesamiento (extracción de PDF) — puerto interno 8083
+  # ---------------------------------------------------------
+  - type: web
+    name: ms-cif-procesamiento
+    runtime: docker
+    dockerfilePath: ./services/ms-cif-procesamiento/Dockerfile
+    dockerContext: ./services/ms-cif-procesamiento
+    plan: free
+    region: oregon
+    envVars:
+      - key: CORS_ALLOWED_ORIGIN
+        sync: false
+      - key: FIDEICOMISOS_ADAPTER_URL
+        fromService:
+          type: web
+          name: ms-fideicomisos-adapter
+          property: host
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+  # ---------------------------------------------------------
+  # ms-carga-masiva (importación por layout) — puerto interno 8084
+  # ---------------------------------------------------------
+  - type: web
+    name: ms-carga-masiva
+    runtime: docker
+    dockerfilePath: ./services/ms-carga-masiva/Dockerfile
+    dockerContext: ./services/ms-carga-masiva
+    plan: free
+    region: oregon
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: CORS_ALLOWED_ORIGIN
+        sync: false
+      - key: FIDEICOMISOS_ADAPTER_URL
+        fromService:
+          type: web
+          name: ms-fideicomisos-adapter
+          property: host
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+# NOTA: el frontend (React/Vite) NO va aquí — se despliega por separado
+# en Vercel, que lo detecta automáticamente al conectar el repo
+# (ver 21-guia-despliegue-nube-gratuita.md).

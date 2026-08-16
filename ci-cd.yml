@@ -1,0 +1,105 @@
+name: CI - Direcciones Fiscales
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-backend:
+    name: Pruebas backend (${{ matrix.servicio }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        servicio:
+          - ms-direcciones-fiscales
+          - ms-fideicomisos-adapter
+          - ms-cif-procesamiento
+          - ms-carga-masiva
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: direcciones_fiscales
+          POSTGRES_USER: labuser
+          POSTGRES_PASSWORD: labpass
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Cargar esquema de base de datos
+        run: |
+          sudo apt-get install -y postgresql-client
+          PGPASSWORD=labpass psql -h localhost -U labuser -d direcciones_fiscales -f 04-esquema-datos-postgres.sql
+          PGPASSWORD=labpass psql -h localhost -U labuser -d direcciones_fiscales -f 05-datos-semilla-laboratorio.sql
+
+      - name: Correr pruebas de ${{ matrix.servicio }}
+        working-directory: services/${{ matrix.servicio }}
+        run: ./mvnw clean test -B
+
+  test-frontend:
+    name: Pruebas frontend (build + lint + unit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Instalar dependencias
+        working-directory: frontend
+        run: npm ci
+
+      - name: Typecheck
+        working-directory: frontend
+        run: npx tsc -b
+
+      - name: Lint
+        working-directory: frontend
+        run: npx oxlint
+
+      - name: Build
+        working-directory: frontend
+        run: npm run build
+
+      - name: Build de Storybook
+        working-directory: frontend
+        run: npm run build-storybook
+
+  # NOTA: las pruebas E2E de Playwright requieren los 4 microservicios
+  # corriendo simultáneamente contra datos reales — no se incluyen en
+  # este CI automático por su complejidad de orquestación; correrlas
+  # manualmente antes de un release importante (`npm run test:e2e`).
+
+  deploy:
+    name: Disparar despliegue en Render (solo tras CI exitoso en main)
+    needs: [test-backend, test-frontend]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar Deploy Hooks de Render
+        run: |
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_DIRECCIONES_FISCALES }}"
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_FIDEICOMISOS_ADAPTER }}"
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_CIF_PROCESAMIENTO }}"
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_CARGA_MASIVA }}"
+      # Vercel despliega el frontend automáticamente al hacer push a main
+      # (integración nativa de Vercel con GitHub, no requiere este workflow).

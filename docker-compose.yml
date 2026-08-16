@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: direcciones-fiscales-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: direcciones_fiscales
+      POSTGRES_USER: labuser
+      POSTGRES_PASSWORD: labpass
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./04-esquema-datos-postgres.sql:/docker-entrypoint-initdb.d/01-init.sql
+      # ^ este script se ejecuta automáticamente SOLO la primera vez
+      #   que se crea el volumen (primer arranque del contenedor).
+
+volumes:
+  pgdata:
