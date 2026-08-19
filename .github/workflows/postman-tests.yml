@@ -32,7 +32,11 @@ jobs:
         run: |
           newman run ./coleccion.json \
             -e ./Render-Prod.postman_environment.json \
-            --env-var "RENDER_BASE_URL=$ENV_BASE_URL" \
+            --env-var "baseUrl=$ENV_BASE_URL" \
+            --env-var "baseUrl_fideicomisos=$ENV_BASE_URL" \
+            --env-var "baseUrl_direcciones=$ENV_BASE_URL" \
+            --env-var "baseUrl_cif=$ENV_BASE_URL" \
+            --env-var "baseUrl_carga_masiva=$ENV_BASE_URL" \
             -r cli,htmlextra \
             --reporter-htmlextra-export ./newman-report.html
 
