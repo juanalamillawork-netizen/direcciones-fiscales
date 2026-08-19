@@ -12,7 +12,7 @@ jobs:
     name: Run Newman Suite on Render
     runs-on: ubuntu-latest
 
-    steps:
+º    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -31,11 +31,11 @@ jobs:
           ENV_BASE_URL: ${{ secrets.RENDER_BASE_URL }}
         run: |
           newman run ./postman/coleccion.json \
-            -e ./postman/entorno.json \
-            --env-var "baseUrl_fideicomisos=$ENV_BASE_URL" \
+            -e ./Render-Prod.postman_environment.json \
+            --env-var "RENDER_BASE_URL=$ENV_BASE_URL" \
             -r cli,htmlextra \
             --reporter-htmlextra-export ./newman-report.html
-
+            
       - name: Upload Test Report Artifact
         if: always()
         uses: actions/upload-artifact@v4
