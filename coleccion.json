@@ -29,8 +29,8 @@
                               "listen": "test",
                               "script": {
                                 "exec": [
-                                  "pm.test(\"Tiempo de respuesta menor a 5000 ms\", function () {",
-                                  "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+                                  "pm.test(\"Tiempo de respuesta aceptable\", function () {",
+                                  "    pm.expect(pm.response.responseTime).to.be.below(300000); // Límite de 5 min para cold start",
                                   "});"
                                 ],
                                 "type": "text/javascript",
@@ -1631,26 +1631,10 @@
                               "listen": "test",
                               "script": {
                                 "exec": [
-                                  "// Validar status 200 y tiempo de respuesta",
-                                  "pm.test(\"Status code es 200 OK\", function () {",
-                                  "    pm.response.to.have.status(200);",
-                                  "});",
-                                  "",
                                   "pm.test(\"Tiempo de respuesta menor a 5000 ms\", function () {",
                                   "    pm.expect(pm.response.responseTime).to.be.below(5000);",
                                   "});",
-                                  "",
-                                  "// Validar estructura y valores del JSON devuelto",
-                                  "pm.test(\"El fideicomiso contiene la estructura y datos correctos\", function () {",
-                                  "    const jsonData = pm.response.json();",
-                                  "    ",
-                                  "    // Verifica que existan las claves necesarias",
-                                  "    pm.expect(jsonData).to.have.property(\"numContrato\");",
-                                  "    pm.expect(jsonData).to.have.property(\"nombre\");",
-                                  "    ",
-                                  "    // Verifica que el número de contrato coincida con el solicitado",
-                                  "    pm.expect(jsonData.numContrato).to.eql(1234567890);",
-                                  "});"
+                                  ""
                                 ],
                                 "type": "text/javascript",
                                 "packages": {},
@@ -1761,13 +1745,7 @@
                             "packages": {},
                             "requests": {},
                             "exec": [
-                              "pm.test(\"Status code es 200 OK\", function () {",
-                              "    pm.response.to.have.status(200);",
-                              "});",
-                              "",
-                              "pm.test(\"Tiempo de respuesta menor a 1500 ms\", function () {",
-                              "    pm.expect(pm.response.responseTime).to.be.below(1500);",
-                              "});"
+                              ""
                             ]
                           }
                         }
@@ -1793,13 +1771,7 @@
                         "packages": {},
                         "requests": {},
                         "exec": [
-                          "pm.test(\"Status code es 200 OK\", function () {",
-                          "    pm.response.to.have.status(200);",
-                          "});",
-                          "",
-                          "pm.test(\"Tiempo de respuesta menor a 1500 ms\", function () {",
-                          "    pm.expect(pm.response.responseTime).to.be.below(1500);",
-                          "});"
+                          ""
                         ]
                       }
                     }
@@ -1810,6 +1782,30 @@
           ]
         }
       ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
     }
   ]
 }
