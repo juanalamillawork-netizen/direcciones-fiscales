@@ -1,0 +1,1606 @@
+{
+  "info": {
+    "_postman_id": "1bfa8993-16ba-4bfb-b899-2e9a54814db0",
+    "name": "Microservicios-Suite",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "10643869",
+    "_collection_link": "https://go.postman.co/collection/10643869-1bfa8993-16ba-4bfb-b899-2e9a54814db0?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "MS-CARGA-MASIVA",
+      "item": [
+        {
+          "name": "api",
+          "item": [
+            {
+              "name": "v1",
+              "item": [
+                {
+                  "name": "carga-masiva",
+                  "item": [
+                    {
+                      "name": "direcciones-fiscales",
+                      "item": [
+                        {
+                          "name": "cargar Archivo",
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"archivo\": \"string\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/carga-masiva/direcciones-fiscales?usuario=SISTEMA",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "carga-masiva",
+                                "direcciones-fiscales"
+                              ],
+                              "query": [
+                                {
+                                  "key": "usuario",
+                                  "value": "SISTEMA"
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"archivo\": \"string\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/carga-masiva/direcciones-fiscales?usuario=SISTEMA",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "carga-masiva",
+                                    "direcciones-fiscales"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "usuario",
+                                      "value": "SISTEMA"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "body": "{\n  \"loteId\": \"string\",\n  \"totalRegistros\": 3416,\n  \"registrosExitosos\": 78,\n  \"registrosConError\": 8420,\n  \"lineas\": [\n    {\n      \"numLinea\": 4847,\n      \"fideicomiso\": \"string\",\n      \"rfcArchivo\": \"string\",\n      \"rfcSistema\": \"string\",\n      \"estatus\": \"string\",\n      \"mensaje\": \"string\"\n    },\n    {\n      \"numLinea\": 2266,\n      \"fideicomiso\": \"string\",\n      \"rfcArchivo\": \"string\",\n      \"rfcSistema\": \"string\",\n      \"estatus\": \"string\",\n      \"mensaje\": \"string\"\n    }\n  ]\n}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "{loteId}",
+                      "item": [
+                        {
+                          "name": "detalle",
+                          "item": [
+                            {
+                              "name": "obtener Detalle",
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/carga-masiva/:loteId/detalle",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "carga-masiva",
+                                    ":loteId",
+                                    "detalle"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "loteId",
+                                      "value": "string"
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/carga-masiva/:loteId/detalle",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "carga-masiva",
+                                        ":loteId",
+                                        "detalle"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "loteId",
+                                          "value": "string"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "*/*"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "body": "{\n  \"loteId\": \"string\",\n  \"totalRegistros\": 3416,\n  \"registrosExitosos\": 78,\n  \"registrosConError\": 8420,\n  \"lineas\": [\n    {\n      \"numLinea\": 4847,\n      \"fideicomiso\": \"string\",\n      \"rfcArchivo\": \"string\",\n      \"rfcSistema\": \"string\",\n      \"estatus\": \"string\",\n      \"mensaje\": \"string\"\n    },\n    {\n      \"numLinea\": 2266,\n      \"fideicomiso\": \"string\",\n      \"rfcArchivo\": \"string\",\n      \"rfcSistema\": \"string\",\n      \"estatus\": \"string\",\n      \"mensaje\": \"string\"\n    }\n  ]\n}"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MS-CIF-PROCESAMIENTO",
+      "item": [
+        {
+          "name": "api",
+          "item": [
+            {
+              "name": "v1",
+              "item": [
+                {
+                  "name": "cif",
+                  "item": [
+                    {
+                      "name": "procesar",
+                      "item": [
+                        {
+                          "name": "procesar",
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"file\": \"string\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/cif/procesar?fideicomisoId=string&tipoParticipante=string&numeroParticipante=string",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "cif",
+                                "procesar"
+                              ],
+                              "query": [
+                                {
+                                  "key": "fideicomisoId",
+                                  "value": "string"
+                                },
+                                {
+                                  "key": "tipoParticipante",
+                                  "value": "string"
+                                },
+                                {
+                                  "key": "numeroParticipante",
+                                  "value": "string"
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"file\": \"string\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/cif/procesar?fideicomisoId=string&tipoParticipante=string&numeroParticipante=string",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "cif",
+                                    "procesar"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "fideicomisoId",
+                                      "value": "string"
+                                    },
+                                    {
+                                      "key": "tipoParticipante",
+                                      "value": "string"
+                                    },
+                                    {
+                                      "key": "numeroParticipante",
+                                      "value": "string"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "body": "{}"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MS-DIRECCIONES-FISCALES",
+      "item": [
+        {
+          "name": "api",
+          "item": [
+            {
+              "name": "v1",
+              "item": [
+                {
+                  "name": "direcciones-fiscales",
+                  "item": [
+                    {
+                      "name": "{numContrato}",
+                      "item": [
+                        {
+                          "name": "{cvePers}",
+                          "item": [
+                            {
+                              "name": "{numPersFid}",
+                              "item": [
+                                {
+                                  "name": "detalle",
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "direcciones-fiscales",
+                                        ":numContrato",
+                                        ":cvePers",
+                                        ":numPersFid"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "numContrato",
+                                          "value": "string"
+                                        },
+                                        {
+                                          "key": "cvePers",
+                                          "value": "string"
+                                        },
+                                        {
+                                          "key": "numPersFid",
+                                          "value": "string"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "response": [
+                                    {
+                                      "name": "OK",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "*/*"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "direcciones-fiscales",
+                                            ":numContrato",
+                                            ":cvePers",
+                                            ":numPersFid"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "numContrato",
+                                              "value": "string"
+                                            },
+                                            {
+                                              "key": "cvePers",
+                                              "value": "string"
+                                            },
+                                            {
+                                              "key": "numPersFid",
+                                              "value": "string"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "*/*"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "body": "{\n  \"fideicomisoId\": \"string\",\n  \"tipoPersona\": \"string\",\n  \"numeroParticipante\": \"string\",\n  \"calle\": \"string\",\n  \"numeroExterior\": \"string\",\n  \"numeroInterior\": \"string\",\n  \"colonia\": \"string\",\n  \"localidad\": \"string\",\n  \"municipio\": \"string\",\n  \"paisId\": 4538,\n  \"estadoId\": 4633,\n  \"codigoPostal\": \"string\",\n  \"referencia\": \"string\",\n  \"telefono\": \"string\",\n  \"regimenFiscal\": \"string\",\n  \"correoElectronico\": \"string\",\n  \"nombreLegal\": \"string\",\n  \"fechaAlta\": \"2004-01-04T10:17:44.148Z\",\n  \"fechaUltMod\": \"2021-12-18T14:17:57.000Z\"\n}"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "actualizar",
+                                  "request": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"calle\": \"string\",\n  \"codigoPostal\": \"10383\",\n  \"colonia\": \"string\",\n  \"estadoId\": 9882,\n  \"municipio\": \"string\",\n  \"numeroExterior\": \"string\",\n  \"paisId\": 6800,\n  \"numeroInterior\": \"string\",\n  \"localidad\": \"string\",\n  \"referencia\": \"string\",\n  \"telefono\": \"string\",\n  \"regimenFiscal\": \"string\",\n  \"correoElectronico\": \"string\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "direcciones-fiscales",
+                                        ":numContrato",
+                                        ":cvePers",
+                                        ":numPersFid"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "numContrato",
+                                          "value": "string"
+                                        },
+                                        {
+                                          "key": "cvePers",
+                                          "value": "string"
+                                        },
+                                        {
+                                          "key": "numPersFid",
+                                          "value": "string"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "response": [
+                                    {
+                                      "name": "OK",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "*/*"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"calle\": \"string\",\n  \"codigoPostal\": \"10383\",\n  \"colonia\": \"string\",\n  \"estadoId\": 9882,\n  \"municipio\": \"string\",\n  \"numeroExterior\": \"string\",\n  \"paisId\": 6800,\n  \"numeroInterior\": \"string\",\n  \"localidad\": \"string\",\n  \"referencia\": \"string\",\n  \"telefono\": \"string\",\n  \"regimenFiscal\": \"string\",\n  \"correoElectronico\": \"string\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "direcciones-fiscales",
+                                            ":numContrato",
+                                            ":cvePers",
+                                            ":numPersFid"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "numContrato",
+                                              "value": "string"
+                                            },
+                                            {
+                                              "key": "cvePers",
+                                              "value": "string"
+                                            },
+                                            {
+                                              "key": "numPersFid",
+                                              "value": "string"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "*/*"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "body": "{\n  \"fideicomisoId\": \"string\",\n  \"tipoPersona\": \"string\",\n  \"numeroParticipante\": \"string\",\n  \"calle\": \"string\",\n  \"numeroExterior\": \"string\",\n  \"numeroInterior\": \"string\",\n  \"colonia\": \"string\",\n  \"localidad\": \"string\",\n  \"municipio\": \"string\",\n  \"paisId\": 4538,\n  \"estadoId\": 4633,\n  \"codigoPostal\": \"string\",\n  \"referencia\": \"string\",\n  \"telefono\": \"string\",\n  \"regimenFiscal\": \"string\",\n  \"correoElectronico\": \"string\",\n  \"nombreLegal\": \"string\",\n  \"fechaAlta\": \"2004-01-04T10:17:44.148Z\",\n  \"fechaUltMod\": \"2021-12-18T14:17:57.000Z\"\n}"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "eliminar",
+                                  "request": {
+                                    "method": "DELETE",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "direcciones-fiscales",
+                                        ":numContrato",
+                                        ":cvePers",
+                                        ":numPersFid"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "numContrato",
+                                          "value": "string"
+                                        },
+                                        {
+                                          "key": "cvePers",
+                                          "value": "string"
+                                        },
+                                        {
+                                          "key": "numPersFid",
+                                          "value": "string"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "response": [
+                                    {
+                                      "name": "OK",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "direcciones-fiscales",
+                                            ":numContrato",
+                                            ":cvePers",
+                                            ":numPersFid"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "numContrato",
+                                              "value": "string"
+                                            },
+                                            {
+                                              "key": "cvePers",
+                                              "value": "string"
+                                            },
+                                            {
+                                              "key": "numPersFid",
+                                              "value": "string"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "body": ""
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "buscar",
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/direcciones-fiscales?fideicomisoId=string&tipoPersona=string",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "direcciones-fiscales"
+                          ],
+                          "query": [
+                            {
+                              "key": "fideicomisoId",
+                              "value": "string"
+                            },
+                            {
+                              "key": "tipoPersona",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/direcciones-fiscales?fideicomisoId=string&tipoPersona=string",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "direcciones-fiscales"
+                              ],
+                              "query": [
+                                {
+                                  "key": "fideicomisoId",
+                                  "value": "string"
+                                },
+                                {
+                                  "key": "tipoPersona",
+                                  "value": "string"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "body": "[\n  {\n    \"fideicomisoId\": \"string\",\n    \"tipoPersona\": \"string\",\n    \"numeroParticipante\": \"string\",\n    \"calle\": \"string\",\n    \"numeroExterior\": \"string\",\n    \"numeroInterior\": \"string\",\n    \"colonia\": \"string\",\n    \"localidad\": \"string\",\n    \"municipio\": \"string\",\n    \"paisId\": 7740,\n    \"estadoId\": 4529,\n    \"codigoPostal\": \"string\",\n    \"referencia\": \"string\",\n    \"telefono\": \"string\",\n    \"regimenFiscal\": \"string\",\n    \"correoElectronico\": \"string\",\n    \"nombreLegal\": \"string\",\n    \"fechaAlta\": \"1999-03-21T11:54:48.180Z\",\n    \"fechaUltMod\": \"1985-02-27T13:53:06.788Z\"\n  },\n  {\n    \"fideicomisoId\": \"string\",\n    \"tipoPersona\": \"string\",\n    \"numeroParticipante\": \"string\",\n    \"calle\": \"string\",\n    \"numeroExterior\": \"string\",\n    \"numeroInterior\": \"string\",\n    \"colonia\": \"string\",\n    \"localidad\": \"string\",\n    \"municipio\": \"string\",\n    \"paisId\": 7156,\n    \"estadoId\": 4481,\n    \"codigoPostal\": \"string\",\n    \"referencia\": \"string\",\n    \"telefono\": \"string\",\n    \"regimenFiscal\": \"string\",\n    \"correoElectronico\": \"string\",\n    \"nombreLegal\": \"string\",\n    \"fechaAlta\": \"2004-09-28T23:00:49.986Z\",\n    \"fechaUltMod\": \"1973-06-22T11:09:51.623Z\"\n  }\n]"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "crear",
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"calle\": \"string\",\n  \"codigoPostal\": \"14376\",\n  \"colonia\": \"string\",\n  \"estadoId\": 2084,\n  \"fideicomisoId\": \"05908\",\n  \"municipio\": \"string\",\n  \"numeroExterior\": \"string\",\n  \"numeroParticipante\": \"81394956967164488\",\n  \"paisId\": 603,\n  \"tipoPersona\": \"TERCERO\",\n  \"numeroInterior\": \"string\",\n  \"localidad\": \"string\",\n  \"referencia\": \"string\",\n  \"telefono\": \"string\",\n  \"regimenFiscal\": \"string\",\n  \"correoElectronico\": \"string\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/direcciones-fiscales",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "direcciones-fiscales"
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"calle\": \"string\",\n  \"codigoPostal\": \"14376\",\n  \"colonia\": \"string\",\n  \"estadoId\": 2084,\n  \"fideicomisoId\": \"05908\",\n  \"municipio\": \"string\",\n  \"numeroExterior\": \"string\",\n  \"numeroParticipante\": \"81394956967164488\",\n  \"paisId\": 603,\n  \"tipoPersona\": \"TERCERO\",\n  \"numeroInterior\": \"string\",\n  \"localidad\": \"string\",\n  \"referencia\": \"string\",\n  \"telefono\": \"string\",\n  \"regimenFiscal\": \"string\",\n  \"correoElectronico\": \"string\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/direcciones-fiscales",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "direcciones-fiscales"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "body": "{\n  \"fideicomisoId\": \"string\",\n  \"tipoPersona\": \"string\",\n  \"numeroParticipante\": \"string\",\n  \"calle\": \"string\",\n  \"numeroExterior\": \"string\",\n  \"numeroInterior\": \"string\",\n  \"colonia\": \"string\",\n  \"localidad\": \"string\",\n  \"municipio\": \"string\",\n  \"paisId\": 4538,\n  \"estadoId\": 4633,\n  \"codigoPostal\": \"string\",\n  \"referencia\": \"string\",\n  \"telefono\": \"string\",\n  \"regimenFiscal\": \"string\",\n  \"correoElectronico\": \"string\",\n  \"nombreLegal\": \"string\",\n  \"fechaAlta\": \"2004-01-04T10:17:44.148Z\",\n  \"fechaUltMod\": \"2021-12-18T14:17:57.000Z\"\n}"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "catalogos",
+                  "item": [
+                    {
+                      "name": "regimenes-fiscales",
+                      "item": [
+                        {
+                          "name": "listar Regimenes Fiscales",
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/catalogos/regimenes-fiscales?tipoPersona=string",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "catalogos",
+                                "regimenes-fiscales"
+                              ],
+                              "query": [
+                                {
+                                  "key": "tipoPersona",
+                                  "value": "string"
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/catalogos/regimenes-fiscales?tipoPersona=string",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "catalogos",
+                                    "regimenes-fiscales"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "tipoPersona",
+                                      "value": "string"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "body": "[\n  {\n    \"clave\": 5918,\n    \"descripcion\": \"string\",\n    \"aplicaFisica\": true,\n    \"aplicaMoral\": false\n  },\n  {\n    \"clave\": 3601,\n    \"descripcion\": \"string\",\n    \"aplicaFisica\": true,\n    \"aplicaMoral\": false\n  }\n]"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "paises",
+                      "item": [
+                        {
+                          "name": "listar Paises",
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/catalogos/paises",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "catalogos",
+                                "paises"
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/catalogos/paises",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "catalogos",
+                                    "paises"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "body": "[\n  {\n    \"id\": 7357,\n    \"nombre\": \"string\"\n  },\n  {\n    \"id\": 9752,\n    \"nombre\": \"string\"\n  }\n]"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "estados",
+                      "item": [
+                        {
+                          "name": "listar Estados",
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/catalogos/estados?paisId=3061",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "catalogos",
+                                "estados"
+                              ],
+                              "query": [
+                                {
+                                  "key": "paisId",
+                                  "value": "3061"
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/catalogos/estados?paisId=3061",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "catalogos",
+                                    "estados"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "paisId",
+                                      "value": "3061"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "body": "[\n  {\n    \"id\": 1609,\n    \"nombre\": \"string\",\n    \"paisId\": 5222\n  },\n  {\n    \"id\": 4193,\n    \"nombre\": \"string\",\n    \"paisId\": 295\n  }\n]"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MS-FIDEICOMISOS-ADAPTER",
+      "item": [
+        {
+          "name": "api",
+          "item": [
+            {
+              "name": "v1",
+              "item": [
+                {
+                  "name": "fideicomisos",
+                  "item": [
+                    {
+                      "name": "{numContrato}",
+                      "item": [
+                        {
+                          "name": "participantes",
+                          "item": [
+                            {
+                              "name": "{tipoParticipante}",
+                              "item": [
+                                {
+                                  "name": "{numParticipante}",
+                                  "item": [
+                                    {
+                                      "name": "rfc",
+                                      "item": [
+                                        {
+                                          "name": "get Rfc Participante",
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "*/*"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/fideicomisos/:numContrato/participantes/:tipoParticipante/:numParticipante/rfc",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "fideicomisos",
+                                                ":numContrato",
+                                                "participantes",
+                                                ":tipoParticipante",
+                                                ":numParticipante",
+                                                "rfc"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "numContrato",
+                                                  "value": "1234567890"
+                                                },
+                                                {
+                                                  "key": "tipoParticipante",
+                                                  "value": "FIDEICOMITENTE"
+                                                },
+                                                {
+                                                  "key": "numParticipante",
+                                                  "value": "1"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "response": [
+                                            {
+                                              "name": "OK",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "*/*"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/api/v1/fideicomisos/:numContrato/participantes/:tipoParticipante/:numParticipante/rfc",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "api",
+                                                    "v1",
+                                                    "fideicomisos",
+                                                    ":numContrato",
+                                                    "participantes",
+                                                    ":tipoParticipante",
+                                                    ":numParticipante",
+                                                    "rfc"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "numContrato",
+                                                      "value": "1944"
+                                                    },
+                                                    {
+                                                      "key": "tipoParticipante",
+                                                      "value": "string"
+                                                    },
+                                                    {
+                                                      "key": "numParticipante",
+                                                      "value": "1944"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "text",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "*/*"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "body": "{\n  \"rfc\": \"string\"\n}"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "nombre",
+                                      "item": [
+                                        {
+                                          "name": "get Nombre Participante",
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "*/*"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/fideicomisos/:numContrato/participantes/:tipoParticipante/:numParticipante/nombre",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "fideicomisos",
+                                                ":numContrato",
+                                                "participantes",
+                                                ":tipoParticipante",
+                                                ":numParticipante",
+                                                "nombre"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "numContrato",
+                                                  "value": "1234567890"
+                                                },
+                                                {
+                                                  "key": "tipoParticipante",
+                                                  "value": "FIDEICOMITENTE"
+                                                },
+                                                {
+                                                  "key": "numParticipante",
+                                                  "value": "1"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "response": [
+                                            {
+                                              "name": "OK",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "*/*"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/api/v1/fideicomisos/:numContrato/participantes/:tipoParticipante/:numParticipante/nombre",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "api",
+                                                    "v1",
+                                                    "fideicomisos",
+                                                    ":numContrato",
+                                                    "participantes",
+                                                    ":tipoParticipante",
+                                                    ":numParticipante",
+                                                    "nombre"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "numContrato",
+                                                      "value": "1944"
+                                                    },
+                                                    {
+                                                      "key": "tipoParticipante",
+                                                      "value": "string"
+                                                    },
+                                                    {
+                                                      "key": "numParticipante",
+                                                      "value": "1944"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "text",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "*/*"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "body": "{\n  \"nombre\": \"string\",\n  \"tipoPersona\": \"string\"\n}"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "domicilios-heredables",
+                          "item": [
+                            {
+                              "name": "get Domicilios Heredables",
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/fideicomisos/:numContrato/domicilios-heredables?tipoParticipante=string&numParticipante=1944",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "fideicomisos",
+                                    ":numContrato",
+                                    "domicilios-heredables"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "tipoParticipante",
+                                      "value": "string"
+                                    },
+                                    {
+                                      "key": "numParticipante",
+                                      "value": "1944"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "numContrato",
+                                      "value": "1944"
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/fideicomisos/:numContrato/domicilios-heredables?tipoParticipante=string&numParticipante=1944",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "fideicomisos",
+                                        ":numContrato",
+                                        "domicilios-heredables"
+                                      ],
+                                      "query": [
+                                        {
+                                          "key": "tipoParticipante",
+                                          "value": "string"
+                                        },
+                                        {
+                                          "key": "numParticipante",
+                                          "value": "1944"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "numContrato",
+                                          "value": "1944"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "*/*"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "body": "[\n  {\n    \"calle\": \"string\",\n    \"numeroExterior\": \"string\",\n    \"colonia\": \"string\",\n    \"poblacion\": \"string\",\n    \"municipio\": \"string\",\n    \"estado\": \"string\",\n    \"estadoId\": 1228,\n    \"pais\": \"string\",\n    \"paisId\": 3749,\n    \"codigoPostal\": \"string\",\n    \"nombreLegal\": \"string\",\n    \"tipoDomicilio\": \"string\",\n    \"numSecDirecc\": 5308\n  },\n  {\n    \"calle\": \"string\",\n    \"numeroExterior\": \"string\",\n    \"colonia\": \"string\",\n    \"poblacion\": \"string\",\n    \"municipio\": \"string\",\n    \"estado\": \"string\",\n    \"estadoId\": 317,\n    \"pais\": \"string\",\n    \"paisId\": 9639,\n    \"codigoPostal\": \"string\",\n    \"nombreLegal\": \"string\",\n    \"tipoDomicilio\": \"string\",\n    \"numSecDirecc\": 1866\n  }\n]"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "get Fideicomiso",
+                          "event": [
+                            {
+                              "listen": "test",
+                              "script": {
+                                "exec": [
+                                  "// Validar status 200 y tiempo de respuesta",
+                                  "pm.test(\"Status code es 200 OK\", function () {",
+                                  "    pm.response.to.have.status(200);",
+                                  "});",
+                                  "",
+                                  "pm.test(\"Tiempo de respuesta menor a 1500 ms\", function () {",
+                                  "    pm.expect(pm.response.responseTime).to.be.below(1500);",
+                                  "});",
+                                  "",
+                                  "// Validar estructura y valores del JSON devuelto",
+                                  "pm.test(\"El fideicomiso contiene la estructura y datos correctos\", function () {",
+                                  "    const jsonData = pm.response.json();",
+                                  "    ",
+                                  "    // Verifica que existan las claves necesarias",
+                                  "    pm.expect(jsonData).to.have.property(\"numContrato\");",
+                                  "    pm.expect(jsonData).to.have.property(\"nombre\");",
+                                  "    ",
+                                  "    // Verifica que el número de contrato coincida con el solicitado",
+                                  "    pm.expect(jsonData.numContrato).to.eql(1234567890);",
+                                  "});"
+                                ],
+                                "type": "text/javascript",
+                                "packages": {},
+                                "requests": {}
+                              }
+                            }
+                          ],
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl_fideicomisos}}/api/v1/fideicomisos/1234567890?numFideicomiso=1234567890&tipoParticipante=FIDEICOMITENTE&numParticipante=1&fideicomisos=1234567890",
+                              "host": [
+                                "{{baseUrl_fideicomisos}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "fideicomisos",
+                                "1234567890"
+                              ],
+                              "query": [
+                                {
+                                  "key": "numFideicomiso",
+                                  "value": "1234567890"
+                                },
+                                {
+                                  "key": "tipoParticipante",
+                                  "value": "FIDEICOMITENTE"
+                                },
+                                {
+                                  "key": "numParticipante",
+                                  "value": "1"
+                                },
+                                {
+                                  "key": "fideicomisos",
+                                  "value": "1234567890",
+                                  "type": "text"
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/fideicomisos/:numContrato",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "fideicomisos",
+                                    ":numContrato"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "numContrato",
+                                      "value": "1944"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "body": "{\n  \"numContrato\": 1956,\n  \"nombre\": \"string\"\n}"
+                            }
+                          ]
+                        }
+                      ],
+                      "event": [
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "packages": {},
+                            "requests": {},
+                            "exec": [
+                              ""
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "packages": {},
+                            "requests": {},
+                            "exec": [
+                              "pm.test(\"Status code es 200 OK\", function () {",
+                              "    pm.response.to.have.status(200);",
+                              "});",
+                              "",
+                              "pm.test(\"Tiempo de respuesta menor a 1500 ms\", function () {",
+                              "    pm.expect(pm.response.responseTime).to.be.below(1500);",
+                              "});"
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {},
+                        "exec": [
+                          ""
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {},
+                        "exec": [
+                          "pm.test(\"Status code es 200 OK\", function () {",
+                          "    pm.response.to.have.status(200);",
+                          "});",
+                          "",
+                          "pm.test(\"Tiempo de respuesta menor a 1500 ms\", function () {",
+                          "    pm.expect(pm.response.responseTime).to.be.below(1500);",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
