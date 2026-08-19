@@ -1,0 +1,44 @@
+name: Executing Postman Tests with Newman
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  postman-suite:
+    name: Run Newman Suite on Render
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Newman & HTML Reporter
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+
+      - name: Execute Newman Tests
+        env:
+          ENV_BASE_URL: ${{ secrets.RENDER_BASE_URL }}
+        run: |
+          newman run ./postman/coleccion.json \
+            -e ./postman/entorno.json \
+            --env-var "baseUrl_fideicomisos=$ENV_BASE_URL" \
+            -r cli,htmlextra \
+            --reporter-htmlextra-export ./newman-report.html
+
+      - name: Upload Test Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-execution-report
+          path: ./newman-report.html
