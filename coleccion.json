@@ -47,9 +47,9 @@
                               }
                             },
                             "url": {
-                              "raw": "{{baseUrl}}/api/v1/carga-masiva/direcciones-fiscales?usuario=SISTEMA",
+                              "raw": "{{baseUrl_carga_masiva}}/api/v1/carga-masiva/direcciones-fiscales?usuario=SISTEMA",
                               "host": [
-                                "{{baseUrl}}"
+                                "{{baseUrl_carga_masiva}}"
                               ],
                               "path": [
                                 "api",
@@ -142,9 +142,9 @@
                                   }
                                 ],
                                 "url": {
-                                  "raw": "{{baseUrl}}/api/v1/carga-masiva/:loteId/detalle",
+                                  "raw": "{{baseUrl_carga_masiva}}/api/v1/carga-masiva/:loteId/detalle",
                                   "host": [
-                                    "{{baseUrl}}"
+                                    "{{baseUrl_carga_masiva}}"
                                   ],
                                   "path": [
                                     "api",
@@ -258,9 +258,9 @@
                               }
                             },
                             "url": {
-                              "raw": "{{baseUrl}}/api/v1/cif/procesar?fideicomisoId=string&tipoParticipante=string&numeroParticipante=string",
+                              "raw": "{{baseUrl_cif}}/api/v1/cif/procesar?fideicomisoId=string&tipoParticipante=string&numeroParticipante=string",
                               "host": [
-                                "{{baseUrl}}"
+                                "{{baseUrl_cif}}"
                               ],
                               "path": [
                                 "api",
@@ -383,6 +383,21 @@
                               "item": [
                                 {
                                   "name": "detalle",
+                                  "event": [
+                                    {
+                                      "listen": "test",
+                                      "script": {
+                                        "exec": [
+                                          "pm.test(\"Tiempo de respuesta menor a 5000 ms\", function () {",
+                                          "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+                                          "});"
+                                        ],
+                                        "type": "text/javascript",
+                                        "packages": {},
+                                        "requests": {}
+                                      }
+                                    }
+                                  ],
                                   "request": {
                                     "method": "GET",
                                     "header": [
@@ -392,9 +407,9 @@
                                       }
                                     ],
                                     "url": {
-                                      "raw": "{{baseUrl}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
+                                      "raw": "{{baseUrl_direcciones}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
                                       "host": [
-                                        "{{baseUrl}}"
+                                        "{{baseUrl_direcciones}}"
                                       ],
                                       "path": [
                                         "api",
@@ -499,9 +514,9 @@
                                       }
                                     },
                                     "url": {
-                                      "raw": "{{baseUrl}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
+                                      "raw": "{{baseUrl_direcciones}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
                                       "host": [
-                                        "{{baseUrl}}"
+                                        "{{baseUrl_direcciones}}"
                                       ],
                                       "path": [
                                         "api",
@@ -601,9 +616,9 @@
                                     "method": "DELETE",
                                     "header": [],
                                     "url": {
-                                      "raw": "{{baseUrl}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
+                                      "raw": "{{baseUrl_direcciones}}/api/v1/direcciones-fiscales/:numContrato/:cvePers/:numPersFid",
                                       "host": [
-                                        "{{baseUrl}}"
+                                        "{{baseUrl_direcciones}}"
                                       ],
                                       "path": [
                                         "api",
@@ -690,9 +705,9 @@
                           }
                         ],
                         "url": {
-                          "raw": "{{baseUrl}}/api/v1/direcciones-fiscales?fideicomisoId=string&tipoPersona=string",
+                          "raw": "{{baseUrl_direcciones}}/api/v1/direcciones-fiscales?fideicomisoId=string&tipoPersona=string",
                           "host": [
-                            "{{baseUrl}}"
+                            "{{baseUrl_direcciones}}"
                           ],
                           "path": [
                             "api",
@@ -783,9 +798,9 @@
                           }
                         },
                         "url": {
-                          "raw": "{{baseUrl}}/api/v1/direcciones-fiscales",
+                          "raw": "{{baseUrl_direcciones}}/api/v1/direcciones-fiscales",
                           "host": [
-                            "{{baseUrl}}"
+                            "{{baseUrl_direcciones}}"
                           ],
                           "path": [
                             "api",
@@ -864,9 +879,9 @@
                               }
                             ],
                             "url": {
-                              "raw": "{{baseUrl}}/api/v1/catalogos/regimenes-fiscales?tipoPersona=string",
+                              "raw": "{{baseUrl_direcciones}}/api/v1/catalogos/regimenes-fiscales?tipoPersona=string",
                               "host": [
-                                "{{baseUrl}}"
+                                "{{baseUrl_direcciones}}"
                               ],
                               "path": [
                                 "api",
@@ -942,9 +957,9 @@
                               }
                             ],
                             "url": {
-                              "raw": "{{baseUrl}}/api/v1/catalogos/paises",
+                              "raw": "{{baseUrl_direcciones}}/api/v1/catalogos/paises",
                               "host": [
-                                "{{baseUrl}}"
+                                "{{baseUrl_direcciones}}"
                               ],
                               "path": [
                                 "api",
@@ -1008,9 +1023,9 @@
                               }
                             ],
                             "url": {
-                              "raw": "{{baseUrl}}/api/v1/catalogos/estados?paisId=3061",
+                              "raw": "{{baseUrl_direcciones}}/api/v1/catalogos/estados?paisId=3061",
                               "host": [
-                                "{{baseUrl}}"
+                                "{{baseUrl_direcciones}}"
                               ],
                               "path": [
                                 "api",
@@ -1118,9 +1133,9 @@
                                               }
                                             ],
                                             "url": {
-                                              "raw": "{{baseUrl}}/api/v1/fideicomisos/:numContrato/participantes/:tipoParticipante/:numParticipante/rfc",
+                                              "raw": "{{baseUrl_fideicomisos}}baseUrl_fideicomisos/api/v1/fideicomisos/:numContrato/participantes/:tipoParticipante/:numParticipante/rfc",
                                               "host": [
-                                                "{{baseUrl}}"
+                                                "{{baseUrl_fideicomisos}}baseUrl_fideicomisos"
                                               ],
                                               "path": [
                                                 "api",
@@ -1220,9 +1235,9 @@
                                               }
                                             ],
                                             "url": {
-                                              "raw": "{{baseUrl}}/api/v1/fideicomisos/:numContrato/participantes/:tipoParticipante/:numParticipante/nombre",
+                                              "raw": "{{baseUrl_fideicomisos}}/api/v1/fideicomisos/:numContrato/participantes/:tipoParticipante/:numParticipante/nombre",
                                               "host": [
-                                                "{{baseUrl}}"
+                                                "{{baseUrl_fideicomisos}}"
                                               ],
                                               "path": [
                                                 "api",
@@ -1328,9 +1343,9 @@
                                   }
                                 ],
                                 "url": {
-                                  "raw": "{{baseUrl}}/api/v1/fideicomisos/:numContrato/domicilios-heredables?tipoParticipante=string&numParticipante=1944",
+                                  "raw": "{{baseUrl_fideicomisos}}/api/v1/fideicomisos/:numContrato/domicilios-heredables?tipoParticipante=string&numParticipante=1944",
                                   "host": [
-                                    "{{baseUrl}}"
+                                    "{{baseUrl_fideicomisos}}"
                                   ],
                                   "path": [
                                     "api",
