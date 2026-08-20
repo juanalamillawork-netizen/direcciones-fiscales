@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "app.cors.allowed-origins",
+      "type": "java.lang.String",
+      "description": "Orígenes permitidos para las políticas de CORS."
+    },
+    {
+      "name": "app.fideicomisos-adapter.base-url",
+      "type": "java.lang.String",
+      "description": "URL base para la comunicación con el microservicio fideicomisos-adapter."
+    }
+  ]
+}

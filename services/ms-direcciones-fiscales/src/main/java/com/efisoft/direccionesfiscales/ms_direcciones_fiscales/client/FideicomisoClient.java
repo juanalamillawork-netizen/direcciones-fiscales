@@ -18,7 +18,7 @@ public class FideicomisoClient {
 
     private final RestClient restClient;
 
-    public FideicomisoClient(@Value("${fideicomisos-adapter.base-url}") String baseUrl) {
+    public FideicomisoClient(@Value("${app.fideicomisos-adapter.base-url:http://localhost:8082}") String baseUrl) {
         this.restClient = RestClient.builder()
             .baseUrl(baseUrl)
             .build();
