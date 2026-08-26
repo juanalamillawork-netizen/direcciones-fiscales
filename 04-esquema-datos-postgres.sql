@@ -77,8 +77,10 @@ CREATE TABLE catalogo_estado (
 INSERT INTO catalogo_pais (pais_id, pais_nombre) VALUES (1, 'México');
 INSERT INTO catalogo_estado (estado_id, estado_nombre, pais_id) VALUES
     (9, 'Ciudad de México', 1),
+    (13, 'Guanajuato', 1),
     (15, 'México (Estado de)', 1),
-    (19, 'Nuevo León', 1);
+    (19, 'Nuevo León', 1),
+    (20, 'Jalisco', 1);
 
 -- =========================================================
 -- Tablas legadas de origen (solo lectura para ms-fideicomisos-adapter)

@@ -9,7 +9,7 @@ import com.efisoft.direccionesfiscales.ms_carga_masiva.parser.ArchivoParser;
 import com.efisoft.direccionesfiscales.ms_carga_masiva.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -163,14 +163,54 @@ public class CargaMasivaService {
             // 6. Teléfono
             String telefono = concatTelefono(linea.getLada(), linea.getTelefono());
 
-            // 7. Upsert en direccif (en transacción propia para aislar fallos)
-            var id = new DomicilioFiscalId(fideicomiso, tipoParticipante, linea.getNumParticipante());
-            var domicilio = domicilioFiscalRepository.findById(id).orElseGet(() -> {
-                var d = new DomicilioFiscal();
-                d.setId(id);
-                d.setDifFecAlta(ahora);
-                return d;
-            });
+            // 7. Validación de longitud de campos antes del upsert (para evitar DataIntegrityViolationException genérico)
+            // Se validan las longitudes de los campos que el usuario envía en el archivo antes de intentar el INSERT/UPDATE
+            var validacionErrors = new ArrayList<String>();
+
+            // dif_cve_pers: límite 20 (viene de linea.getTipoParticipante())
+            if (linea.getTipoParticipante() != null && linea.getTipoParticipante().length() > 20) {
+                validacionErrors.add(String.format(
+                        "El campo dif_cve_pers excede la longitud máxima permitida (20 caracteres). Valor actual: %d caracteres",
+                        linea.getTipoParticipante().length()));
+            }
+
+            // dif_num_pers_fid: límite 20 (viene de linea.getNumParticipante())
+            if (linea.getNumParticipante() != null && linea.getNumParticipante().length() > 20) {
+                validacionErrors.add(String.format(
+                        "El campo dif_num_pers_fid excede la longitud máxima permitida (20 caracteres). Valor actual: %d caracteres",
+                        linea.getNumParticipante().length()));
+            }
+
+            // dif_recep_no_ext: límite 20 (viene de linea.getNoExterior())
+            if (linea.getNoExterior() != null && linea.getNoExterior().length() > 20) {
+                validacionErrors.add(String.format(
+                        "El campo dif_recep_no_ext excede la longitud máxima permitida (20 caracteres). Valor actual: %d caracteres",
+                        linea.getNoExterior().length()));
+            }
+
+            // dif_recep_no_int: límite 20 (viene de linea.getNoInterior())
+            if (linea.getNoInterior() != null && linea.getNoInterior().length() > 20) {
+                validacionErrors.add(String.format(
+                        "El campo dif_recep_no_int excede la longitud máxima permitida (20 caracteres). Valor actual: %d caracteres",
+                        linea.getNoInterior().length()));
+            }
+
+            // dif_telefono: límite 20 (viene de linea.getTelefono())
+            if (linea.getTelefono() != null && linea.getTelefono().length() > 20) {
+                validacionErrors.add(String.format(
+                        "El campo dif_telefono excede la longitud máxima permitida (20 caracteres). Valor actual: %d caracteres",
+                        linea.getTelefono().length()));
+            }
+
+            if (!validacionErrors.isEmpty()) {
+                String joiner = String.join("; ", validacionErrors);
+                mensajes.add("Validación de longitud fallida: " + joiner);
+                String mensajeFinal = truncate(joiner, 500);
+                carga.setCarintMensaje(mensajeFinal.isEmpty() ? null : mensajeFinal);
+                carga.setCarintEstatus("E");
+                cargaInterfazRepository.save(carga);
+                return new LineaDetalleDTO(secuencial, fideicomiso, rfcArchivo, rfcSistema, "E", mensajeFinal);
+            }
 
             domicilio.setDifRecepCalle(linea.getCalle());
             domicilio.setDifRecepNoExt(linea.getNoExterior());
@@ -189,6 +229,15 @@ public class CargaMasivaService {
 
             try {
                 upsertProcessor.upsert(domicilio);
+            } catch (DataIntegrityViolationException e) {
+                log.error("Error de integridad en upsert direccif para línea {}", secuencial, e);
+                String msg = "Error de integridad en base de datos al guardar dirección fiscal - verifique los campos obligatorios";
+                mensajes.add(msg);
+                String mensajeFinal = truncate(msg, 500);
+                carga.setCarintMensaje(mensajeFinal.isEmpty() ? null : mensajeFinal);
+                carga.setCarintEstatus("E");
+                cargaInterfazRepository.save(carga);
+                return new LineaDetalleDTO(secuencial, fideicomiso, rfcArchivo, rfcSistema, "E", mensajeFinal);
             } catch (Exception e) {
                 log.error("Error en upsert direccif para línea {}", secuencial, e);
                 mensajes.add("Error al guardar dirección fiscal: " + e.getMessage());

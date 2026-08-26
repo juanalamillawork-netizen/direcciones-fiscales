@@ -1,5 +1,6 @@
 import { useState, useRef, type ChangeEvent } from 'react';
-import { Upload, Loader2, FileUp, FileCheck, AlertTriangle, X } from 'lucide-react';
+import { Upload, Loader2, FileUp, FileCheck, AlertTriangle, X, ChevronDownIcon } from 'lucide-react';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { useCargaMasiva } from '../../hooks/useCargaMasiva';
 import type { ResultadoCargaMasiva } from '../../types/domicilioFiscal';
@@ -110,35 +111,34 @@ export function CargaMasivaUploader({ onArchivoProcesado, demoStatus, demoResult
 
     return (
       <div className="rounded-lg border bg-card p-4 shadow-sm">
-        <div className="mb-3 flex items-center gap-2">
-          {todosExitosos ? (
-            <FileCheck className="h-5 w-5 text-green-600" />
-          ) : (
-            <FileUp className="h-5 w-5 text-amber-600" />
-          )}
-          <p className={`text-sm font-medium ${todosExitosos ? 'text-green-700' : 'text-amber-700'}`}>
-            Archivo procesado
-          </p>
-        </div>
-
-        <div className="mb-3 grid grid-cols-3 gap-4 text-center text-[11px]">
-          <div className="rounded-md bg-muted/30 p-2">
-            <p className="text-lg font-bold text-foreground">{resultado.totalRegistros}</p>
-            <p className="text-muted-foreground">Total</p>
-          </div>
-          <div className="rounded-md bg-green-50 p-2">
-            <p className="text-lg font-bold text-green-700">{resultado.registrosExitosos}</p>
-            <p className="text-green-600">Exitosos</p>
-          </div>
-          <div className={`rounded-md p-2 ${todosExitosos ? 'bg-muted/30' : 'bg-red-50'}`}>
-            <p className={`text-lg font-bold ${todosExitosos ? 'text-muted-foreground' : 'text-red-700'}`}>
-              {resultado.registrosConError}
-            </p>
-            <p className={todosExitosos ? 'text-muted-foreground' : 'text-red-600'}>Con error</p>
-          </div>
-        </div>
-
-        <Button variant="outline" size="sm" className="h-7 text-xs" onClick={reset}>
+        <Accordion type="single" className="w-full">
+          {resultado.lineas.map((linea) => (
+            <AccordionItem key={linea.secuencial}>
+              <AccordionTrigger>
+                <div className="flex items-center justify-between">
+                  <span>
+                    {linea.estatus === 'EXITOSO' ? (
+                      <span className="text-green-600">
+                        {linea.estatus === 'EXITOSO' ? 'Exitoso' : ''}
+                      </span>
+                    ) : (
+                      <span className="text-red-600">
+                        {linea.estatus === 'ERROR' ? 'Error' : ''}
+                      </span>
+                    )}
+                  </span>
+                  <ChevronDownIcon className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <p className={`text-sm font-medium ${linea.estatus === 'EXITOSO' ? 'text-green-700' : 'text-red-700'}`}>
+                  {linea.estatus}: {linea.mensaje || ''}
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+        <Button variant="outline" size="sm" className="h-7 text-xs mt-4 w-full" onClick={reset}>
           <X className="h-3.5 w-3.5" />
           {todosError ? 'Reintentar' : 'Nueva carga'}
         </Button>
