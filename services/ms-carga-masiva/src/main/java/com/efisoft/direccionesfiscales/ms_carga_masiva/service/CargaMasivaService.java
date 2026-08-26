@@ -164,7 +164,16 @@ public class CargaMasivaService {
             // 6. Teléfono
             String telefono = concatTelefono(linea.getLada(), linea.getTelefono());
 
-            // 7. Validación de longitud de campos antes del upsert (para evitar DataIntegrityViolationException genérico)
+            // 7. Instancia de domicilio para validación y upsert
+            var id = new DomicilioFiscalId(fideicomiso, tipoParticipante, linea.getNumParticipante());
+            var domicilio = domicilioFiscalRepository.findById(id).orElseGet(() -> {
+                var d = new DomicilioFiscal();
+                d.setId(id);
+                d.setDifFecAlta(ahora);
+                return d;
+            });
+
+            // Validación de longitudes de campo vs. límite de columna
             // Se validan las longitudes de los campos que el usuario envía en el archivo antes de intentar el INSERT/UPDATE
             var validacionErrors = new ArrayList<String>();
 
