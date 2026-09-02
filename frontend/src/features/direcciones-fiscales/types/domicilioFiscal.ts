@@ -115,6 +115,25 @@ export const PAISES = [
 
 export interface LineaResultado {
   secuencial: number;
+  fideicomiso?: string;
+  tipoParticipante?: string;
+  numeroParticipante?: string;
+  rfc?: string;
+  nacionalidad?: string;
+  telefono?: string;
+  clavePaisLada?: string;
+  correoElectronico?: string;
+  calle?: string;
+  numeroExterior?: string;
+  numeroInterior?: string;
+  colonia?: string;
+  municipio?: string;
+  localidad?: string;
+  codigoPostal?: string;
+  pais?: string;
+  estado?: string;
+  regimenFiscal?: string;
+  regimenFiscalDescripcion?: string;
   estatus: 'EXITOSO' | 'ERROR';
   mensaje?: string;
 }

@@ -1,5 +1,5 @@
 import { useState, useRef, type ChangeEvent } from 'react';
-import { Upload, Loader2, FileUp, FileCheck, AlertTriangle, X, ChevronDownIcon } from 'lucide-react';
+import { Upload, Loader2, AlertTriangle, X, ChevronDownIcon } from 'lucide-react';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { useCargaMasiva } from '../../hooks/useCargaMasiva';
@@ -106,14 +106,13 @@ export function CargaMasivaUploader({ onArchivoProcesado, demoStatus, demoResult
   }
 
   if (status === 'completado' && resultado) {
-    const todosExitosos = resultado.registrosConError === 0;
     const todosError = resultado.registrosExitosos === 0;
 
     return (
       <div className="rounded-lg border bg-card p-4 shadow-sm">
         <Accordion type="single" className="w-full">
           {resultado.lineas.map((linea) => (
-            <AccordionItem key={linea.secuencial}>
+            <AccordionItem key={linea.secuencial} value={String(linea.secuencial)}>
               <AccordionTrigger>
                 <div className="flex items-center justify-between">
                   <span>
