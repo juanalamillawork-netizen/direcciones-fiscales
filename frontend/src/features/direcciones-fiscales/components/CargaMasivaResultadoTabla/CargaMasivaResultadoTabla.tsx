@@ -1,4 +1,4 @@
-import { CheckCircle, XCircle, X, ChevronDown } from 'lucide-react';
+import { CheckCircle, XCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Accordion,
@@ -90,8 +90,7 @@ export function CargaMasivaResultadoTabla({ lineas, onCerrar }: CargaMasivaResul
                 {linea.estatus === 'ERROR' ? (linea.mensaje || 'Error desconocido') : ''}
               </span>
 
-              <ChevronDown className="h-4 w-4 justify-self-end text-muted-foreground transition-transform duration-200" />
-            </AccordionTrigger>
+              </AccordionTrigger>
 
             <AccordionContent>
               <div className="space-y-1 px-4 pb-3 pt-1 text-[11px] text-muted-foreground">
