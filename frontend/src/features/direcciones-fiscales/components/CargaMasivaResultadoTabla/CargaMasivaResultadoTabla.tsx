@@ -8,28 +8,6 @@ import {
 } from '@/components/ui/accordion';
 import type { LineaResultado } from '../../types/domicilioFiscal';
 
-const GRID_STYLE = { gridTemplateColumns: '70px 110px 1fr' } as const;
-
-const COLUMNAS: { key: string; label: string }[] = [
-  { key: 'secuencial', label: 'Secuencial' },
-  { key: 'estatus', label: 'Estatus' },
-  { key: 'mensaje', label: 'Mensaje' },
-];
-
-interface CargaMasivaResultadoTablaProps {
-  lineas: LineaResultado[];
-  onCerrar?: () => void;
-}
-
-function deriveDisplayState(lineas: LineaResultado[]) {
-  if (lineas.length === 0) return 'vacio' as const;
-  const hasError = lineas.some((l) => l.estatus === 'ERROR');
-  const hasExito = lineas.some((l) => l.estatus === 'EXITOSO');
-  if (hasError && hasExito) return 'mixto' as const;
-  if (hasError) return 'todos-error' as const;
-  return 'todos-exito' as const;
-}
-
 function Detail({ label, value }: { label: string; value?: string }) {
   return (
     <div className="flex gap-1">
@@ -39,40 +17,18 @@ function Detail({ label, value }: { label: string; value?: string }) {
   );
 }
 
-export function CargaMasivaResultadoTabla({ lineas, onCerrar }: CargaMasivaResultadoTablaProps) {
-  const state = deriveDisplayState(lineas);
-
-  if (state === 'vacio') {
-    return (
-      <div className="overflow-hidden rounded-lg border bg-card shadow-sm">
-        <div className="sticky top-0 z-10 bg-gradient-to-r from-primary to-red-700 px-4 py-1.5">
-          <div
-            className="grid gap-2 text-center text-[10px] font-medium text-primary-foreground"
-            style={GRID_STYLE}
-          >
-            {COLUMNAS.map((col) => (
-              <span key={col.key}>{col.label}</span>
-            ))}
-          </div>
-        </div>
-        <div className="px-4 py-10 text-center text-xs text-muted-foreground">
-          Sin resultados de carga masiva
-        </div>
-      </div>
-    );
-  }
-
+export function CargaMasivaResultadoTabla({ lineas, onCerrar }: { lineas: LineaResultado[]; onCerrar?: () => void }) {
   return (
     <div className="space-y-3">
       <Accordion type="multiple" className="w-full">
         {lineas.map((linea) => (
           <AccordionItem key={linea.secuencial} value={String(linea.secuencial)}>
-            <AccordionTrigger className="grid gap-3 px-4 py-2.5 text-[11px] hover:bg-muted/50 hover:no-underline" style={GRID_STYLE}>
-              <span className="text-center tabular-nums text-muted-foreground">
+            <AccordionTrigger className="grid gap-3 px-4 py-2.5 text-[11px] hover:bg-muted/50 hover:no-underline">
+              <span className="text-center text-muted-foreground">
                 {linea.secuencial}
               </span>
 
-              <div className="flex items-center justify-center gap-1.5">
+              <div className="flex items-center gap-2">
                 {linea.estatus === 'EXITOSO' ? (
                   <>
                     <CheckCircle className="h-4 w-4 text-green-600 shrink-0" />
@@ -85,15 +41,16 @@ export function CargaMasivaResultadoTabla({ lineas, onCerrar }: CargaMasivaResul
                   </>
                 )}
               </div>
-
-              <span className="text-muted-foreground truncate">
-                {linea.estatus === 'ERROR' ? (linea.mensaje || 'Error desconocido') : ''}
-              </span>
-
-              </AccordionTrigger>
+            </AccordionTrigger>
 
             <AccordionContent>
-              <div className="space-y-1 px-4 pb-3 pt-1 text-[11px] text-muted-foreground">
+              {linea.estatus === 'ERROR' && (
+                <p className="text-red-600 text-[11px] break-all mb-3">
+                  {linea.mensaje || 'Error desconocido'}
+                </p>
+              )}
+
+              <div className="grid gap-2">
                 <Detail label="Fideicomiso" value={linea.fideicomiso} />
                 <Detail label="Tipo Participante" value={linea.tipoParticipante} />
                 <Detail label="No. Participante" value={linea.numeroParticipante} />
