@@ -1,82 +1,140 @@
-import { CheckCircle, XCircle, X } from 'lucide-react';
+import { XCircle, CheckCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+import { cn } from '@/lib/utils';
 import type { LineaResultado } from '../../types/domicilioFiscal';
 
-function Detail({ label, value }: { label: string; value?: string }) {
+function KPICard({
+  label,
+  count,
+  children,
+  className,
+}: {
+  label: string;
+  count: number;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="flex gap-1">
-      <span className="font-medium text-foreground text-[11px]">{label}:</span>
-      <span className="text-muted-foreground text-[11px] break-all">{value || '—'}</span>
+    <div
+      className={cn(
+        'rounded-lg border p-4 flex flex-col items-center gap-2',
+        'transition-colors hover:border-primary/50',
+        className,
+      )}
+    >
+      <span className="text-2xl font-bold {count > 0 ? 'text-foreground' : 'text-muted-foreground'}">
+        {count}
+      </span>
+      <p className="text-xs font-medium text-muted-foreground">{label}</p>
+      {children}
     </div>
   );
 }
 
-export function CargaMasivaResultadoTabla({ lineas, onCerrar }: { lineas: LineaResultado[]; onCerrar?: () => void }) {
+export function CargaMasivaResultadoTabla({
+  lineas,
+  onCerrar,
+}: {
+  lineas: LineaResultado[];
+  onCerrar?: () => void;
+}) {
+  const totalRegistros = lineas.length;
+  const registrosExitosos = lineas.filter((l) => l.estatus === 'EXITOSO').length;
+  const registrosFallidos = lineas.filter((l) => l.estatus === 'ERROR').length;
+
+  const estadoIcono = registrosFallidos > 0 ? <XCircle className="h-6 w-6 text-red-600" /> : <CheckCircle className="h-6 w-6 text-green-600" />;
+
+  function getEstiloFila(linea: LineaResultado) {
+    if (linea.estatus === 'ERROR') return 'text-red-600';
+    if (linea.estatus === 'EXITOSO') return 'text-green-700';
+    return 'text-muted-foreground';
+  }
+
   return (
-    <div className="space-y-3">
-      <Accordion type="multiple" className="w-full">
-        {lineas.map((linea) => (
-          <AccordionItem key={linea.secuencial} value={String(linea.secuencial)}>
-            <AccordionTrigger className="grid gap-3 px-4 py-2.5 text-[11px] hover:bg-muted/50 hover:no-underline">
-              <span className="text-center text-muted-foreground">
-                {linea.secuencial}
-              </span>
+    <div className="space-y-4 max-w-2xl mx-auto">
+      {/* Sección Superior: Estado General */}
+      <div className="text-center p-6">
+        <div className="mx-auto mb-4">
+          {estadoIcono}
+        </div>
+        <h2 className="text-2xl font-bold text-foreground mb-2">
+          {registrosFallidos > 0 ? 'Carga completada con errores' : 'Carga completada exitosamente'}
+        </h2>
+        <p className="text-muted-foreground">
+          Se procesaron <strong>{totalRegistros} registros.</strong>
+        </p>
+      </div>
 
-              <div className="flex items-center gap-2">
-                {linea.estatus === 'EXITOSO' ? (
-                  <>
-                    <CheckCircle className="h-4 w-4 text-green-600 shrink-0" />
-                    <span className="text-green-700">Exitoso</span>
-                  </>
-                ) : (
-                  <>
-                    <XCircle className="h-4 w-4 text-red-600 shrink-0" />
-                    <span className="text-red-700">Error</span>
-                  </>
-                )}
-              </div>
-            </AccordionTrigger>
+      {/* Fila de Indicadores (KPIs) */}
+      <div className="grid grid-cols-2 gap-2 px-6 pb-4">
+        <KPICard
+          label="Registros Exitosos"
+          count={registrosExitosos}
+        >
+          <CheckCircle className="h-4 w-4 text-green-600" />
+          <span className="text-green-700">Exitosos</span>
+        </KPICard>
 
-            <AccordionContent>
-              {linea.estatus === 'ERROR' && (
-                <p className="text-red-600 text-[11px] break-all mb-3">
-                  {linea.mensaje || 'Error desconocido'}
-                </p>
-              )}
+        <KPICard
+          label="Registros Fallidos"
+          count={registrosFallidos}
+        >
+          <XCircle className="h-4 w-4 text-red-600" />
+          <span className="text-red-700">Errores</span>
+        </KPICard>
+      </div>
 
-              <div className="grid gap-2">
-                <Detail label="Fideicomiso" value={linea.fideicomiso} />
-                <Detail label="Tipo Participante" value={linea.tipoParticipante} />
-                <Detail label="No. Participante" value={linea.numeroParticipante} />
-                <Detail label="RFC" value={linea.rfc} />
-                <Detail label="Nacionalidad" value={linea.nacionalidad} />
-                <Detail label="Teléfono" value={linea.telefono} />
-                <Detail label="Clave País/Lada" value={linea.clavePaisLada} />
-                <Detail label="Correo Electrónico" value={linea.correoElectronico} />
-                <Detail label="Calle" value={linea.calle} />
-                <Detail label="No. Exterior" value={linea.numeroExterior} />
-                <Detail label="No. Interior" value={linea.numeroInterior} />
-                <Detail label="Colonia" value={linea.colonia} />
-                <Detail label="Municipio" value={linea.municipio} />
-                <Detail label="Localidad" value={linea.localidad} />
-                <Detail label="Código Postal" value={linea.codigoPostal} />
-                <Detail label="País" value={linea.pais} />
-                <Detail label="Estado" value={linea.estado} />
-                <Detail label="Régimen Fiscal" value={linea.regimenFiscalDescripcion || linea.regimenFiscal} />
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+      {/* Tabla de Errores con Desplazamiento */}
+      {registrosFallidos > 0 && (
+        <div className="overflow-x-auto rounded-lg border p-4">
+          <div className="shadow-sm sm:rounded-lg">
+            <table className="w-full text-sm text-muted-foreground">
+              <thead>
+                <tr className="sticky top-0 z-10 bg-background">
+                  <th className="left-0 p-3 border-b border-border text-left font-medium uppercase text-xs text-muted-foreground">
+                    Fila
+                  </th>
+                  <th className="p-3 border-b border-border text-left font-medium uppercase text-xs text-muted-foreground">
+                    Registro
+                  </th>
+                  <th className="p-3 border-b border-border text-left font-medium uppercase text-xs text-muted-foreground">
+                    Motivo del error
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {lineas
+                  .filter((l) => l.estatus === 'ERROR')
+                  .map((linea) => (
+                    <tr key={linea.secuencial} className="border-b transition-colors hover:bg-muted/50">
+                      <td className="p-3">
+                        <p className="font-medium">{linea.secuencial}</p>
+                      </td>
+                      <td className="p-3">
+                        <p className="font-medium">{linea.rfc || linea.calle || '—'}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {linea.calle || ''} {linea.numeroExterior || ''}
+                        </p>
+                      </td>
+                      <td className="p-3 break-all">
+                        <p className={getEstiloFila(linea)}>{linea.mensaje || 'Error desconocido'}</p>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
-      <div className="flex justify-end">
-        <Button variant="outline" size="sm" className="h-7 text-xs" onClick={onCerrar}>
+      {/* Botón Cerrar */}
+      <div className="flex justify-end p-6">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onCerrar}
+          className="h-7 text-xs w-auto"
+        >
           <X className="h-3.5 w-3.5" />
           Cerrar
         </Button>
