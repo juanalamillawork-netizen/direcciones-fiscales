@@ -124,7 +124,9 @@ public class CargaMasivaService {
 
             if (rfcArchivo != null && !rfcArchivo.isBlank() && numContrato > 0) {
                 rfcSistema = fideicomisoClient.getRfc(tipoParticipante, numContrato, numParticipante).orElse(null);
-                if (rfcSistema != null && !rfcSistema.equalsIgnoreCase(rfcArchivo.trim())) {
+                if (rfcSistema == null) {
+                    mensajes.add("Participante no encontrado para el Fideicomiso especificado");
+                } else if (!rfcSistema.equalsIgnoreCase(rfcArchivo.trim())) {
                     mensajes.add("RFC no coincide: archivo='" + rfcArchivo + "' sistema='" + rfcSistema + "'");
                 }
             }
@@ -136,6 +138,7 @@ public class CargaMasivaService {
                     nomLegal = fideicomisoClient.getNombre(tipoParticipante, numContrato, numParticipante).orElse(null);
                 } catch (Exception e) {
                     log.warn("Error al resolver nombre legal para línea {}", secuencial, e);
+                    mensajes.add("Error al resolver nombre legal del participante");
                 }
             }
 
