@@ -165,6 +165,19 @@ public class CargaMasivaService {
                 }
             }
 
+            // **NUEVA VALIDACIÓN: Campos obligatorios antes del upsert**
+            // Si el estado es null, agregamos mensaje y regresamos "E" sin upsert
+            if (estadoId == null) {
+                mensajes.add("Estado no proporcionado o inválido para el fideicomiso especificado");
+            }
+            if (!mensajes.isEmpty()) {
+                String mensajeFinal = truncate(String.join("; ", mensajes), 500);
+                carga.setCarintMensaje(mensajeFinal.isEmpty() ? null : mensajeFinal);
+                carga.setCarintEstatus("E");
+                cargaInterfazRepository.save(carga);
+                return new LineaDetalleDTO(secuencial, fideicomiso, rfcArchivo, rfcSistema, "E", mensajeFinal);
+            }
+
             // 6. Teléfono
             String telefono = concatTelefono(linea.getLada(), linea.getTelefono());
 
