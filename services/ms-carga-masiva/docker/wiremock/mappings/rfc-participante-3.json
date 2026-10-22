@@ -1,0 +1,11 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/api/v1/fideicomisos/.*/participantes/.*/3/rfc"
+  },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "rfc": "FCM950703D3A" }
+  }
+}

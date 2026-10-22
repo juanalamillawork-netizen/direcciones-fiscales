@@ -14,3 +14,5 @@ spring:
 
 fideicomisos-adapter:
   base-url: http://localhost:9999
+carga-masiva:
+      encabezado-esperado: "fideicomiso|tipoParticipante|numeroParticipante|rfc|telefono|correoElectronico|calle|numeroExterior|numeroInterior|colonia|municipio|localidad|codigoPostal|pais|estado|regimenFiscal|referencia|nombreLegal"  

@@ -19,7 +19,9 @@ app:
   cors:
     allowed-origins: ${CORS_ALLOWED_ORIGIN:${CORS_ALLOWED_ORIGINS:http://localhost:5173}}
   fideicomisos-adapter:
-    base-url: ${FIDEICOMISOS_ADAPTER_URL:http://localhost:8082}  
+    base-url: ${FIDEICOMISOS_ADAPTER_URL:http://localhost:8082}
+  carga-masiva:
+    encabezado-esperado: "fideicomiso|tipoParticipante|numeroParticipante|rfc|telefono|correoElectronico|calle|numeroExterior|numeroInterior|colonia|municipio|localidad|codigoPostal|pais|estado|regimenFiscal|referencia|nombreLegal"  
 
 server:
   port: ${PORT:${SERVER_PORT:8084}}

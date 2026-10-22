@@ -43,6 +43,9 @@ public class DomicilioFiscal {
     @Column(name = "dif_telefono", length = 20)
     private String difTelefono;
 
+    @Column(name = "dif_mail", length = 150)
+    private String difMail;
+
     @Column(name = "dif_fec_alta", nullable = false)
     private LocalDateTime difFecAlta;
 
@@ -67,6 +70,7 @@ public class DomicilioFiscal {
     public String getDifRecepCp() { return difRecepCp; }
     public String getDifRecepReferencia() { return difRecepReferencia; }
     public String getDifTelefono() { return difTelefono; }
+    public String getDifMail() { return difMail; } 
     public LocalDateTime getDifFecAlta() { return difFecAlta; }
     public LocalDateTime getDifFecUltmod() { return difFecUltmod; }
     public String getDifRegimenFiscal() { return difRegimenFiscal; }
@@ -84,6 +88,7 @@ public class DomicilioFiscal {
     public void setDifRecepCp(String v) { this.difRecepCp = v; }
     public void setDifRecepReferencia(String v) { this.difRecepReferencia = v; }
     public void setDifTelefono(String v) { this.difTelefono = v; }
+    public void setDifMail(String v) { this.difMail = v; }
     public void setDifFecAlta(LocalDateTime v) { this.difFecAlta = v; }
     public void setDifFecUltmod(LocalDateTime v) { this.difFecUltmod = v; }
     public void setDifRegimenFiscal(String v) { this.difRegimenFiscal = v; }
