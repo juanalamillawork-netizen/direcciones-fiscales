@@ -44,4 +44,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  pgdata:
+  pgdata: 
