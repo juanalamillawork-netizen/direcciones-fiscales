@@ -1,6 +1,7 @@
 package com.efisoft.direccionesfiscales.ms_carga_masiva.controller;
 
 import com.efisoft.direccionesfiscales.ms_carga_masiva.dto.LoteDetalleDTO;
+import com.efisoft.direccionesfiscales.ms_carga_masiva.exception.EncabezadoInvalidoException;
 import com.efisoft.direccionesfiscales.ms_carga_masiva.service.CargaMasivaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +21,25 @@ public class CargaMasivaController {
     }
 
     @PostMapping("/direcciones-fiscales")
-    public ResponseEntity<LoteDetalleDTO> cargarArchivo(
+    public ResponseEntity<?> cargarArchivo(
             @RequestParam("archivo") MultipartFile archivo,
             @RequestParam(value = "usuario", defaultValue = "SISTEMA") String usuario) throws IOException {
 
         if (archivo.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(Map.of(
+                    "error", "ARCHIVO_VACIO",
+                    "mensaje", "El archivo no contiene registros."));
         }
 
-        var resultado = service.procesarArchivo(archivo.getOriginalFilename(), archivo.getInputStream(), usuario);
-        return ResponseEntity.ok(resultado);
+        try {
+            var resultado = service.procesarArchivo(
+                    archivo.getOriginalFilename(), archivo.getInputStream(), usuario);
+            return ResponseEntity.ok(resultado);
+        } catch (EncabezadoInvalidoException e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "error", "ENCABEZADO_INVALIDO",
+                    "mensaje", e.getMessage()));
+        }
     }
 
     @GetMapping("/{loteId}/detalle")

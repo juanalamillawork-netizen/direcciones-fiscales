@@ -12,4 +12,8 @@ public interface CatalogoEstadoRepository extends JpaRepository<CatalogoEstado, 
     @Query(nativeQuery = true,
            value = "SELECT * FROM catalogo_estado WHERE pais_id = :paisId AND unaccent(upper(estado_nombre)) = unaccent(upper(:nombre))")
     Optional<CatalogoEstado> findByPaisIdAndEstadoNombre(@Param("paisId") Integer paisId, @Param("nombre") String estadoNombre);
+    @Query(nativeQuery = true,
+           value = "SELECT * FROM catalogo_estado WHERE pais_id = :paisId AND estado_id = :estadoId")
+    Optional<CatalogoEstado> findByPaisIdAndEstadoId(@Param("paisId") Integer paisId, @Param("estadoId") Integer estadoId);
+    
 }
